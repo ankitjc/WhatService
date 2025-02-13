@@ -18,6 +18,9 @@ public class Abbreviations {
     @Column(name = "longform")
     private String longForm;
 
+    @Column(name = "addedBy")
+    private String addedBy;
+
     public Integer getId() {
         return id;
     }
@@ -42,6 +45,13 @@ public class Abbreviations {
         this.longForm = longForm;
     }
 
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
+    }
 //    @Column(name = "addedBy")
 //    private String addedBy;
 
