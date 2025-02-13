@@ -16,10 +16,10 @@ public class Abbreviations {
     private String abbreviation;
 
     @Column(name = "longform")
-    private String longForm;
+    private String longform;
 
-    @Column(name = "addedBy")
-    private String addedBy;
+//    @Column(name = "addedBy")
+//    private String addedBy;
 
     public Integer getId() {
         return id;
@@ -37,23 +37,14 @@ public class Abbreviations {
         this.abbreviation = abbreviation;
     }
 
-    public String getLongForm() {
-        return longForm;
+    public String getLongform() {
+        return longform;
     }
 
-    public void setLongForm(String longForm) {
-        this.longForm = longForm;
+    public void setLongform(String longForm) {
+        this.longform = longForm;
     }
 
-    public String getAddedBy() {
-        return addedBy;
-    }
-
-    public void setAddedBy(String addedBy) {
-        this.addedBy = addedBy;
-    }
-//    @Column(name = "addedBy")
-//    private String addedBy;
 
     // other fields, getters, setters
 }
