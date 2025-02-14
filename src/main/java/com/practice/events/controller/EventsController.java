@@ -28,10 +28,10 @@ public class EventsController {
         return "Connection Successful";
     }
 
-    @GetMapping("/events")
-    public Event fetchEvents(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Event(counter.incrementAndGet(), String.format(template, name));
-    }
+//    @GetMapping("/events")
+//    public Event fetchEvents(@RequestParam(value = "name", defaultValue = "World") String name) {
+//        return new Event(counter.incrementAndGet(), String.format(template, name));
+//    }
 
     @GetMapping("/abbreviations")
     public List<Abbreviations> fetchAllAbbr() {
