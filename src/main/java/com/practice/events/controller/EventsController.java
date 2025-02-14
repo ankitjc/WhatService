@@ -56,6 +56,7 @@ public class EventsController {
         newAbbreviation.setAddedat(new Date());
         newAbbreviation.setLastaccessed(new Date());
         eventService.updateOrInsertUsingRepository(newAbbreviation);
+        System.out.println("Entry added");
         return true;
     }
 
