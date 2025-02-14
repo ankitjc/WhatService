@@ -1,15 +1,17 @@
 package com.practice.events.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "abbreviations")
 public class Abbreviations {
     @Id
-    @Column(name = "id")
+//    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "abbreviation")
@@ -18,8 +20,38 @@ public class Abbreviations {
     @Column(name = "longform")
     private String longform;
 
-//    @Column(name = "addedBy")
-//    private String addedBy;
+    @Column(name = "addedby")
+    private String addedby;
+
+    @Column(name = "addedat")
+    private Date addedat;
+
+    @Column(name = "lastaccessed")
+    private Date lastaccessed;
+
+    public Date getAddedat() {
+        return addedat;
+    }
+
+    public void setAddedat(Date addedat) {
+        this.addedat = addedat;
+    }
+
+    public Date getLastaccessed() {
+        return lastaccessed;
+    }
+
+    public void setLastaccessed(Date lastaccessed) {
+        this.lastaccessed = lastaccessed;
+    }
+
+    public String getAddedby() {
+        return addedby;
+    }
+
+    public void setAddedby(String addedby) {
+        this.addedby = addedby;
+    }
 
     public Integer getId() {
         return id;

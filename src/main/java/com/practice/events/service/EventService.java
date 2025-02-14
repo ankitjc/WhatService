@@ -23,5 +23,15 @@ public class EventService {
         return allAbbr;
     }
 
+    public List<Abbreviations> getAbbreviationsFor(String abbr) {
+        List<Abbreviations> allAbbr = whatRepo.findByAbbreviation(abbr);
+        System.out.println("List of abbreviations fetched:: " +  allAbbr.size());
+        return allAbbr;
+    }
+
+    public void updateOrInsertUsingRepository(Abbreviations abbreviation) {
+        whatRepo.updateOrInsert(abbreviation);
+    }
+
 
 }
