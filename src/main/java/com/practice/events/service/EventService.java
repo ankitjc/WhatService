@@ -19,17 +19,18 @@ public class EventService {
 
     public List<Abbreviations> getAllAbbreviations() {
         List<Abbreviations> allAbbr = whatRepo.findAll();
-        System.out.println("List of abbreviations fetched:: " +  allAbbr.size());
+        System.out.println("List of All abbreviations fetched:: " +  allAbbr.size());
         return allAbbr;
     }
 
     public List<Abbreviations> getAbbreviationsFor(String abbr) {
         List<Abbreviations> allAbbr = whatRepo.findByAbbreviation(abbr);
-        System.out.println("List of abbreviations fetched:: " +  allAbbr.size());
+        System.out.println("List of abbreviations fetched when searching for '" + abbr + "' ::"+  allAbbr.size());
         return allAbbr;
     }
 
     public void updateOrInsertUsingRepository(Abbreviations abbreviation) {
+        System.out.println("Saving: " + abbreviation);
         whatRepo.updateOrInsert(abbreviation);
     }
 

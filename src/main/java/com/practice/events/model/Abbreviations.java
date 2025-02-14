@@ -77,6 +77,16 @@ public class Abbreviations {
         this.longform = longForm;
     }
 
-
-    // other fields, getters, setters
+    @Override
+    public String toString() {
+        return "Abbreviations{" +
+                "id=" + id +
+                ", abbreviation='" + abbreviation + '\'' +
+                ", longform='" + longform + '\'' +
+                ", addedby='" + addedby + '\'' +
+                ", addedat=" + addedat +
+                ", lastaccessed=" + lastaccessed +
+                '}';
+    }
+// other fields, getters, setters
 }

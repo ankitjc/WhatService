@@ -48,7 +48,7 @@ public class EventsController {
             @RequestParam(value = "value", defaultValue = "") String abbr,
             @RequestParam(value = "description", defaultValue = "") String description,
             @RequestParam(value = "addedBy", defaultValue = "") String addedBy) {
-
+        System.out.println("Entry added start...");
         Abbreviations newAbbreviation = new Abbreviations();
         newAbbreviation.setAbbreviation(abbr);
         newAbbreviation.setLongform(description);
@@ -56,7 +56,7 @@ public class EventsController {
         newAbbreviation.setAddedat(new Date());
         newAbbreviation.setLastaccessed(new Date());
         eventService.updateOrInsertUsingRepository(newAbbreviation);
-        System.out.println("Entry added");
+
         return true;
     }
 
