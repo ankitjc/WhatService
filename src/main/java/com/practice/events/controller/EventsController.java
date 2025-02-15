@@ -1,10 +1,9 @@
 package com.practice.events.controller;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.practice.events.model.Abbreviations;
-import com.practice.events.model.Event;
+import com.practice.events.model.Leader;
 import com.practice.events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class EventsController {
 
     @Autowired
-    private EventService eventService;
-
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    private final EventService eventService;
 
     public EventsController(EventService eventService) {
         this.eventService = eventService;
@@ -28,11 +24,6 @@ public class EventsController {
         return "Connection Successful";
     }
 
-//    @GetMapping("/events")
-//    public Event fetchEvents(@RequestParam(value = "name", defaultValue = "World") String name) {
-//        return new Event(counter.incrementAndGet(), String.format(template, name));
-//    }
-
     @GetMapping("/abbreviations")
     public List<Abbreviations> fetchAllAbbr() {
         return eventService.getAllAbbreviations();
@@ -41,6 +32,11 @@ public class EventsController {
     @GetMapping("/abbreviation")
     public List<Abbreviations> fetchAbbr(@RequestParam(value = "shortform", defaultValue = "") String abbr) {
         return eventService.getAbbreviationsFor(abbr);
+    }
+
+    @GetMapping("/leaderboard")
+    public List<Leader> getLeaderboard() {
+        return eventService.getLeaderboard();
     }
 
     @PostMapping("/abbreviation")
