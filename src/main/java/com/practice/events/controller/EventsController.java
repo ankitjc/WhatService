@@ -39,19 +39,20 @@ public class EventsController {
     }
 
     @GetMapping("/abbreviation")
-    public List<Abbreviations> fetchAbbr(@RequestParam(value = "value", defaultValue = "AAC") String abbr) {
+    public List<Abbreviations> fetchAbbr(@RequestParam(value = "shortform", defaultValue = "") String abbr) {
         return eventService.getAbbreviationsFor(abbr);
     }
 
     @PostMapping("/abbreviation")
     public boolean addAbbr(
-            @RequestParam(value = "value", defaultValue = "") String abbr,
+            @RequestParam(value = "shortform", defaultValue = "") String abbr,
+            @RequestParam(value = "longform", defaultValue = "") String longform,
             @RequestParam(value = "description", defaultValue = "") String description,
             @RequestParam(value = "addedBy", defaultValue = "") String addedBy) {
-        System.out.println("Entry added start...");
         Abbreviations newAbbreviation = new Abbreviations();
         newAbbreviation.setAbbreviation(abbr);
-        newAbbreviation.setLongform(description);
+        newAbbreviation.setLongform(longform);
+        newAbbreviation.setDescription(description);
         newAbbreviation.setAddedby(addedBy);
         newAbbreviation.setAddedat(new Date());
         newAbbreviation.setLastaccessed(new Date());

@@ -29,6 +29,17 @@ public class Abbreviations {
     @Column(name = "lastaccessed")
     private Date lastaccessed;
 
+    @Column(name = "description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Date getAddedat() {
         return addedat;
     }
