@@ -6,6 +6,7 @@ import com.practice.events.model.WhatRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class EventService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);;
 
     public List<Abbreviations> getAllAbbreviations() {
-        List<Abbreviations> allAbbr = whatRepo.findAll();
+        List<Abbreviations> allAbbr = whatRepo.findAll(Sort.by(Sort.Direction.DESC, "lastaccessed"));
         LOGGER.info("List of All abbreviations fetched :: {}", allAbbr.size());
         return allAbbr;
     }
