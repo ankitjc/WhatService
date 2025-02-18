@@ -33,6 +33,7 @@ public class EventsController {
 //        return new Event(counter.incrementAndGet(), String.format(template, name));
 //    }
 
+    //Added comment
     @GetMapping("/abbreviations")
     public List<Abbreviations> fetchAllAbbr() {
         return eventService.getAllAbbreviations();
