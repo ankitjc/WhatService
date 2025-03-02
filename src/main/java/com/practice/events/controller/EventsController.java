@@ -2,7 +2,7 @@ package com.practice.events.controller;
 import java.util.Date;
 import java.util.List;
 
-import com.practice.events.model.Abbreviations;
+import com.practice.events.model.Abbreviation;
 import com.practice.events.model.Leader;
 import com.practice.events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,17 @@ public class EventsController {
     }
 
     @GetMapping("/")
-    public String landing () {
+    public String check() {
         return "Connection Successful";
     }
     
     @GetMapping("/abbreviations")
-    public List<Abbreviations> fetchAllAbbr() {
+    public List<Abbreviation> fetchAllAbbr() {
         return eventService.getAllAbbreviations();
     }
 
     @GetMapping("/abbreviation")
-    public List<Abbreviations> fetchAbbr(@RequestParam(value = "shortform", defaultValue = "") String abbr) {
+    public List<Abbreviation> fetchAbbr(@RequestParam(value = "shortForm", defaultValue = "") String abbr) {
         return eventService.getAbbreviationsFor(abbr);
     }
 
@@ -40,20 +40,10 @@ public class EventsController {
     }
 
     @PostMapping("/abbreviation")
-    public boolean addAbbr(
-            @RequestParam(value = "shortform", defaultValue = "") String abbr,
-            @RequestParam(value = "longform", defaultValue = "") String longform,
-            @RequestParam(value = "description", defaultValue = "") String description,
-            @RequestParam(value = "addedBy", defaultValue = "") String addedBy) {
-        Abbreviations newAbbreviation = new Abbreviations();
-        newAbbreviation.setAbbreviation(abbr);
-        newAbbreviation.setLongform(longform);
-        newAbbreviation.setDescription(description);
-        newAbbreviation.setAddedby(addedBy);
-        newAbbreviation.setAddedat(new Date());
-        newAbbreviation.setLastaccessed(new Date());
-        eventService.updateOrInsertUsingRepository(newAbbreviation);
-
+    public boolean addOrUpdateAbbreviation(@RequestBody Abbreviation abbreviation) {
+        abbreviation.setAddedAt(new Date());
+        abbreviation.setLastAccessed(new Date());
+        eventService.updateOrInsertUsingRepository(abbreviation);
         return true;
     }
 

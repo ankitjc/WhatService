@@ -1,6 +1,6 @@
 package com.practice.events.service;
 
-import com.practice.events.model.Abbreviations;
+import com.practice.events.model.Abbreviation;
 import com.practice.events.model.Leader;
 import com.practice.events.model.WhatRepository;
 import org.slf4j.Logger;
@@ -19,14 +19,20 @@ public class EventService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);;
 
-    public List<Abbreviations> getAllAbbreviations() {
-        List<Abbreviations> allAbbr = whatRepo.findAll(Sort.by(Sort.Direction.DESC, "lastaccessed"));
+    public EventService(WhatRepository whatRepo) {
+        this.whatRepo = whatRepo;
+    }
+
+    public List<Abbreviation> getAllAbbreviations() {
+        List<Abbreviation> allAbbr = whatRepo.findAll(Sort.by(Sort.Direction.DESC, "lastAccessed"));
         LOGGER.info("List of All abbreviations fetched :: {}", allAbbr.size());
         return allAbbr;
     }
 
-    public List<Abbreviations> getAbbreviationsFor(String abbr) {
-        List<Abbreviations> allAbbr = whatRepo.findByAbbreviation(abbr);
+    public List<Abbreviation> getAbbreviationsFor(String abbr) {
+        if(abbr.isBlank()) return new ArrayList<>();
+
+        List<Abbreviation> allAbbr = whatRepo.findByShortForm(abbr);
         LOGGER.info("List of abbreviations fetched when searching for {} :: {} ", abbr, allAbbr.size());
         return allAbbr;
     }
@@ -43,10 +49,8 @@ public class EventService {
         return leaderboard;
     }
 
-    public void updateOrInsertUsingRepository(Abbreviations abbreviation) {
+    public void updateOrInsertUsingRepository(Abbreviation abbreviation) {
         LOGGER.info("Saving:: {} ", abbreviation);
         whatRepo.updateOrInsert(abbreviation);
     }
-
-
 }
