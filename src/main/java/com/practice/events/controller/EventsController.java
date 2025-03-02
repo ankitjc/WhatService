@@ -47,4 +47,9 @@ public class EventsController {
         return true;
     }
 
+    @DeleteMapping("/abbreviation")
+    public boolean deleteAbbreviation(@RequestParam(value = "id") int id) {
+        eventService.deleteAbbreviation(id);
+        return true;
+    }
 }

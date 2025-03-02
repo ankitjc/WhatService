@@ -53,4 +53,9 @@ public class EventService {
         LOGGER.info("Saving:: {} ", abbreviation);
         whatRepo.updateOrInsert(abbreviation);
     }
+
+    public void deleteAbbreviation(int id) {
+        LOGGER.info("Deleting :: {} ", id);
+        whatRepo.deleteById(id);
+    }
 }
