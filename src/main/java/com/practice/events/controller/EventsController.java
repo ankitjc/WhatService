@@ -1,11 +1,11 @@
 package com.practice.events.controller;
-import java.util.Date;
 import java.util.List;
 
 import com.practice.events.model.Abbreviation;
 import com.practice.events.model.Leader;
 import com.practice.events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,23 +26,16 @@ public class EventsController {
     
     @GetMapping("/abbreviations")
     public List<Abbreviation> fetchAllAbbr() {
-        return eventService.getAllAbbreviations();
+        return eventService.getAllAbbreviations(0, 10).getContent();
     }
 
     @GetMapping("/abbreviation")
     public List<Abbreviation> fetchAbbr(@RequestParam(value = "shortForm", defaultValue = "") String abbr) {
-        return eventService.getAbbreviationsFor(abbr);
-    }
-
-    @GetMapping("/leaderboard")
-    public List<Leader> getLeaderboard() {
-        return eventService.getLeaderboard();
+        return eventService.getAbbreviationsFor(abbr, 0, 10).getContent();
     }
 
     @PostMapping("/abbreviation")
     public boolean addOrUpdateAbbreviation(@RequestBody Abbreviation abbreviation) {
-        abbreviation.setAddedAt(new Date());
-        abbreviation.setLastAccessed(new Date());
         eventService.updateOrInsertUsingRepository(abbreviation);
         return true;
     }
@@ -52,4 +45,10 @@ public class EventsController {
         eventService.deleteAbbreviation(id);
         return true;
     }
+
+    @GetMapping("/leaderboard")
+    public List<Leader> getLeaderboard() {
+        return eventService.getLeaderboard();
+    }
+
 }
