@@ -12,3 +12,8 @@ To run this application, you will need:
 ### Build
 ```shell
 ./mvnw spring-boot:run
+
+```
+
+### API Specification
+https://whatservice-production.up.railway.app/swagger-ui/index.html
