@@ -1,8 +1,7 @@
 # /What service
 
 ## Description
-This is a sample Spring Boot application to provide create, update and delete abbrevations. 
-It serves apis to fetch 
+This is a sample Spring Boot application to provide create, update and delete abbrevations.  
 
 ## Getting Started
 To run this application, you will need:
