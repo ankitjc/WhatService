@@ -3,7 +3,6 @@ package com.practice.events.model;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,18 +16,9 @@ public interface WhatRepository extends JpaRepository<Abbreviation, Integer> {
                     "GROUP BY addedBy " +
                     "ORDER BY abbrCount desc";
 
-    String UPDATE_ABBREVIATION_WITH_VALUE =
-            "UPDATE abbreviation a " +
-                    "SET a.description=?1 " +
-                    "WHERE a.shortForm=?2";
-
-    List<Abbreviation> findAll();
-
     Page<Abbreviation> findAll(Pageable pageable);
 
     Page<Abbreviation> findByShortForm(String abbr, Pageable pageable);
-
-    List<Abbreviation> findByShortForm(String abr);
 
     @Transactional
     default void updateOrInsert(Abbreviation entity) {

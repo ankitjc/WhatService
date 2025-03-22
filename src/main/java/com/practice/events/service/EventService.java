@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,16 +22,10 @@ public class EventService {
     @Autowired
     private WhatRepository whatRepo;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);
 
     public EventService(WhatRepository whatRepo) {
         this.whatRepo = whatRepo;
-    }
-
-    public List<Abbreviation> getAllAbbreviations() {
-        List<Abbreviation> allAbbr = whatRepo.findAll(Sort.by(Sort.Direction.DESC, "lastAccessed"));
-        LOGGER.info("List of All abbreviations fetched :: {}", allAbbr.size());
-        return allAbbr;
     }
 
     public Page<Abbreviation> getAllAbbreviations(int pageNumber, int pageSize) {
@@ -43,12 +36,6 @@ public class EventService {
         return allAbbr;
     }
 
-    public List<Abbreviation> getAbbreviationsFor(String abbr) {
-        if(abbr.isBlank()) return new ArrayList<>();
-        List<Abbreviation> allAbbr = whatRepo.findByShortForm(abbr);
-        LOGGER.info("List of abbreviations fetched when searching for {} :: {} ", abbr, allAbbr.size());
-        return allAbbr;
-    }
 
     public Page<Abbreviation> getAbbreviationsFor(String abbr, int pageNumber, int pageSize) {
         if(abbr.isBlank()) return Page.empty();
