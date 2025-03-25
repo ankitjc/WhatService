@@ -24,8 +24,9 @@ public class EventsController {
     }
     
     @GetMapping("/abbreviations")
-    public List<Abbreviation> fetchAllAbbr() {
-        return eventService.getAllAbbreviations(0, 10).getContent();
+    public List<Abbreviation> fetchAllAbbr(@RequestParam(value = "sortBy", defaultValue = "lastAccessed") String sortBy,
+            @RequestParam(value = "isDescending", defaultValue = "true") boolean isDescending) {
+        return eventService.getAllAbbreviations(0, 10, sortBy, isDescending).getContent();
     }
 
     @GetMapping("/abbreviation")

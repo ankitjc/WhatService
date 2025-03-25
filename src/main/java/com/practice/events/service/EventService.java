@@ -28,8 +28,8 @@ public class EventService {
         this.whatRepo = whatRepo;
     }
 
-    public Page<Abbreviation> getAllAbbreviations(int pageNumber, int pageSize) {
-        Sort sort = Sort.by("lastAccessed").descending();
+    public Page<Abbreviation> getAllAbbreviations(int pageNumber, int pageSize, String sortBy, boolean isDesc) {
+        Sort sort = isDesc ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
         Page<Abbreviation> allAbbr = whatRepo.findAll(pageable);
         LOGGER.info("List of All paginated abbreviations fetched :: {}", allAbbr.getTotalElements());
@@ -41,7 +41,6 @@ public class EventService {
         if(abbr.isBlank()) return Page.empty();
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Abbreviation> result = whatRepo.findByShortForm(abbr, pageable);
-
         LOGGER.info("List of abbreviations fetched when paginated searched for {} :: {} ", abbr, result.getTotalElements());
         return result;
     }
