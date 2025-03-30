@@ -5,6 +5,7 @@ import com.practice.events.model.Abbreviation;
 import com.practice.events.model.Leader;
 import com.practice.events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,9 +25,13 @@ public class EventsController {
     }
     
     @GetMapping("/abbreviations")
-    public List<Abbreviation> fetchAllAbbr(@RequestParam(value = "sortBy", defaultValue = "lastAccessed") String sortBy,
-            @RequestParam(value = "isDescending", defaultValue = "true") boolean isDescending) {
-        return eventService.getAllAbbreviations(0, 10, sortBy, isDescending).getContent();
+    public ResponseEntity<?> fetchAllAbbr(@RequestParam(value = "sortBy", defaultValue = "lastAccessed") String sortBy,
+                                                          @RequestParam(value = "isDescending", defaultValue = "true") boolean isDescending) {
+        try {
+            return ResponseEntity.ok(eventService.getAllAbbreviations(0, 10, sortBy, isDescending).getContent());
+        } catch(Exception e) {
+            return ResponseEntity.internalServerError().body("Error fetching abbreviations");
+        }
     }
 
     @GetMapping("/abbreviation")

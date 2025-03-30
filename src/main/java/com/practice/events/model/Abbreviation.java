@@ -7,6 +7,21 @@ import java.util.Date;
 @Entity
 @Table(name = "abbreviation")
 public class Abbreviation {
+
+    public Abbreviation(Integer id, String shortForm, String longForm, String description, boolean isDeleted, String addedBy, Date addedAt, Date lastAccessed) {
+        this.id = id;
+        this.shortForm = shortForm;
+        this.longForm = longForm;
+        this.description = description;
+        this.isDeleted = isDeleted;
+        this.addedBy = addedBy;
+        this.addedAt = addedAt;
+        this.lastAccessed = lastAccessed;
+    }
+
+    public Abbreviation() {
+
+    }
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;

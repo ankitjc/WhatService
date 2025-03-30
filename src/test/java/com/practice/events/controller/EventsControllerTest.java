@@ -2,14 +2,13 @@ package com.practice.events.controller;
 
 import com.practice.events.model.Abbreviation;
 import com.practice.events.service.EventService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.stubbing.Answer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,20 +24,40 @@ class EventsControllerTest {
     @Test
     void fetchAllAbbr() {
         //Sample data
-        Abbreviation abbr1 = new Abbreviation();
+        Date addedAt = new Date();
+        Date lastAccessed = new Date();
+        Abbreviation abbr1 = new Abbreviation(1, "", "", "", false, "", addedAt, lastAccessed);
         Abbreviation abbr2 = new Abbreviation();
+
         List<Abbreviation> mockedAbbreviations = Arrays.asList(abbr1, abbr2);
 
         //Mocking Page
         Page<Abbreviation> pageMock = new PageImpl<>(mockedAbbreviations);
         when(mockEventService.getAllAbbreviations(anyInt(), anyInt(), anyString(), anyBoolean())).thenReturn(pageMock);
 
-        Page<Abbreviation> response = mockEventService.getAllAbbreviations( 1, 10, "", true);
-        assertEquals(response.getTotalElements(), mockedAbbreviations.size());
+        //Calling
+        ResponseEntity<?> response = _controller.fetchAllAbbr("", true);
+        List<?> actualListOfAbbr = (List<?>) response.getBody();
+
+        //Testing
+        assertEquals(response.getBody(), mockedAbbreviations);
+        assert actualListOfAbbr != null;
+        assertEquals(((Abbreviation)actualListOfAbbr.get(0)).getId(), 1);
     }
 
     @Test
     void fetchAbbr() {
+        //Sample data
+        Abbreviation abbr1 = new Abbreviation();
+        Abbreviation abbr2 = new Abbreviation();
+        List<Abbreviation> mockedAbbreviations = Arrays.asList(abbr1, abbr2);
+
+        //Mocking Page
+        Page<Abbreviation> pageMock = new PageImpl<>(mockedAbbreviations);
+        when(mockEventService.getAbbreviationsFor(anyString(), anyInt(), anyInt())).thenReturn(pageMock);
+
+        List<Abbreviation> actualResponse = _controller.fetchAbbr("");
+        assertEquals(actualResponse.size(), mockedAbbreviations.size());
     }
 
     @Test
