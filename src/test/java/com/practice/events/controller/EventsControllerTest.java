@@ -2,6 +2,7 @@ package com.practice.events.controller;
 
 import com.practice.events.model.Abbreviation;
 import com.practice.events.service.EventService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,17 +21,21 @@ class EventsControllerTest {
     private final EventService mockEventService = mock(EventService.class);
 
     private final EventsController _controller = new EventsController(mockEventService);
+    private static List<Abbreviation> mockedAbbreviations;
 
-    @Test
-    void fetchAllAbbr() {
+    @BeforeAll
+    static void setup() {
         //Sample data
         Date addedAt = new Date();
         Date lastAccessed = new Date();
         Abbreviation abbr1 = new Abbreviation(1, "", "", "", false, "", addedAt, lastAccessed);
         Abbreviation abbr2 = new Abbreviation();
 
-        List<Abbreviation> mockedAbbreviations = Arrays.asList(abbr1, abbr2);
+        mockedAbbreviations = Arrays.asList(abbr1, abbr2);
+    }
 
+    @Test
+    void fetchAllAbbr() {
         //Mocking Page
         Page<Abbreviation> pageMock = new PageImpl<>(mockedAbbreviations);
         when(mockEventService.getAllAbbreviations(anyInt(), anyInt(), anyString(), anyBoolean())).thenReturn(pageMock);
@@ -56,7 +61,7 @@ class EventsControllerTest {
         Page<Abbreviation> pageMock = new PageImpl<>(mockedAbbreviations);
         when(mockEventService.getAbbreviationsFor(anyString(), anyInt(), anyInt())).thenReturn(pageMock);
 
-        List<Abbreviation> actualResponse = _controller.fetchAbbr("");
+        List<Abbreviation> actualResponse = _controller.fetchAbbr("TEST");
         assertEquals(actualResponse.size(), mockedAbbreviations.size());
     }
 
