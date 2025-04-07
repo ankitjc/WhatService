@@ -35,7 +35,6 @@ public class EventService {
         return whatRepo.findAll(pageable);
     }
 
-
     public Page<Abbreviation> getAbbreviationsFor(String abbr, int pageNumber, int pageSize) {
         if(abbr.isBlank()) return Page.empty();
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
